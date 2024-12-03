@@ -19,21 +19,22 @@
 # END OF INSTRUCTIONS
 
 
-# To scan: 
-# xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
-
 import re
 
-#Multiply two numbers function
+#Multiply two numbers function, turns them to int
 def mul(x,y):
-    return x * y
-
+    return int(x) * int(y)
 
 corruptString = 'xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))'
 
-validMul = re.findall('mul[(][0-9]{1,3},[0-9]{1,3}[)]', corruptString) #Finds all of the strings using regEx
-print(validMul)
+def stringUncorrupter(corruptString):
+    total = 0
+    validMul = re.findall('mul[(][0-9]{1,3},[0-9]{1,3}[)]', corruptString) #Finds all of the strings using regEx
+    for strings in validMul:
+        multiplicands = re.findall('[0-9]{1,3}', strings) #gets the multiplicands
+        product = mul(multiplicands[0], multiplicands[1]) #Multiplies
+        total += product #Adds to total
+    print("Sum of all multiplied multiplicands: ", total) #Prints to console
+    return total
 
-for strings in validMul:
-     pass
-
+stringUncorrupter(corruptString)
