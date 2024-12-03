@@ -17,3 +17,32 @@
 # In the above example, 2 passwords are valid. The middle password, cdefg, is not; it contains no instances of b, but needs at least 1. The first and third passwords are valid: they contain one a or nine c, both within the limits of their respective policies.
 
 # How many passwords are valid according to their policies?
+
+# Steps:
+# Find the rule
+# Check the password by the rule 
+# pass if valid or not
+
+
+testList = ['1-3 a: abcde', '1-3 b: cdefg', '2-9 c: ccccccccc']
+
+testInput = "1-3 a: abcde"
+
+def checkIfRule(rulePwrdSet):
+    splitString = rulePwrdSet.split(' ')
+    
+    requiredChar = splitString[1][0] #The required charecter
+    password = splitString[2] #Get the password
+    requiredCharRange = splitString[0].split("-") #get the range
+
+    requiredCharCount = password.count(requiredChar) #How many times char shows up
+
+    
+    if int(requiredCharRange[0]) <= requiredCharCount <= int(requiredCharRange[1]):
+        return "Password is Valid"
+    else:
+        return "Password is not Valid"
+
+
+print(checkIfRule(testInput))
+
