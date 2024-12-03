@@ -49,7 +49,7 @@ def validPasswordCounter():
     return validPwrdCount
 
     
-print(validPasswordCounter())
+# print(validPasswordCounter())
 
 # --- Part Two ---
 # While it appears you validated the passwords correctly, they don't seem to be what the Official Toboggan Corporate Authentication System is expecting.
@@ -70,5 +70,25 @@ def checkIfNewRule(rulePwrdSet):
     splitString = rulePwrdSet.split(' ')
     requiredChar = splitString[1][0] #The required charecter
     password = splitString[2] #Get the password
-    requiredCharRange = splitString[0].split("-") #get the range
+    requiredCharPositions = splitString[0].split("-") #get the positions  
+
+    first_position = int(requiredCharPositions[0]) - 1
+    second_position = int(requiredCharPositions[1]) - 1  
+
+    first_check = password[first_position] == requiredChar
+    second_check = password[second_position] == requiredChar
     
+    return first_check != second_check
+
+def validPasswordCounterTwo():
+    validPwrdCount = 0
+    for line in passwords:
+        print(line)
+        if checkIfNewRule(line) == True:
+            print(checkIfNewRule(line))
+            validPwrdCount = validPwrdCount + 1
+    return validPwrdCount
+
+print(validPasswordCounterTwo())
+
+print(checkIfNewRule("14-16 m: trxpshgmzpwmsmcmzgwk"))
