@@ -18,10 +18,8 @@
 
 # How many passwords are valid according to their policies?
 
-# Steps:
-# Find the rule
-# Check the password by the rule 
-# pass if valid or not
+#File of passwords
+passwords = open("dayTwoInput", "r")
 
 
 testList = ['1-3 a: abcde', '1-3 b: cdefg', '2-9 c: ccccccccc']
@@ -30,19 +28,26 @@ testInput = "1-3 a: abcde"
 
 def checkIfRule(rulePwrdSet):
     splitString = rulePwrdSet.split(' ')
-    
     requiredChar = splitString[1][0] #The required charecter
     password = splitString[2] #Get the password
     requiredCharRange = splitString[0].split("-") #get the range
 
     requiredCharCount = password.count(requiredChar) #How many times char shows up
 
-    
     if int(requiredCharRange[0]) <= requiredCharCount <= int(requiredCharRange[1]):
-        return "Password is Valid"
+        return True
     else:
-        return "Password is not Valid"
+        return False
 
 
-print(checkIfRule(testInput))
+def validPasswordCounter():
+    validPwrdCount = 0
+    for line in passwords:
+        if checkIfRule(line) == True:
+            print(checkIfRule(line))
+            validPwrdCount = validPwrdCount + 1
+    return validPwrdCount
+
+    
+print(validPasswordCounter())
 
