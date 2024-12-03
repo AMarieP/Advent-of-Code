@@ -64,6 +64,24 @@ newCorruptString = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)und
 
 validMul = re.findall("mul[(][0-9]{1,3},[0-9]{1,3}[)]|do[(][)]|don't[(][)]", newCorruptString)
 
-
+#Sets isDo bool to false when don't() is called, and back to true when do() is called. 
+#Returns Do as the string to be parsed. 
+def stringStatementMaker(corruptedString):
+    dont = []
+    do = []
+    isDo = True
+    for string in corruptedString:
+        if string == "don't()":
+            isDo = False
+        if string == "do()": 
+            isDo = True
+        else:
+            if isDo == True and string != "do()": #Appends to list if isDo truthy and not the do() function
+                do.append(string)
+            if isDo == False and string != "don't()": #Appends to list if isDo truthy and not the don't() function
+                dont.append(string)
+    return do
 
 print(validMul)
+
+validString = stringStatementMaker(validMul)
