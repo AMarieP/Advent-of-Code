@@ -12,7 +12,9 @@
 
 
 
-#Searches unsorted list fro back to front, returns index and target
+#Searches unsorted list from back to front, returns index and target
+
+import re
 def frontAndBackSearch(array, target):
     
     #Get the front and back indexes
@@ -25,4 +27,38 @@ def frontAndBackSearch(array, target):
         elif array[back] == target:
             return target, back
     
-    return None
+    return "Target does not exist"
+
+def isPosition(frontIndex, backIndex):
+    if frontIndex < backIndex:
+        return True
+    if frontIndex == backIndex:
+        return "Error"
+    if frontIndex > backIndex:
+        return False
+
+def getIntFromRules(rule):
+    ruleInt = int(rule.split('|'))
+    front = ruleInt[0]
+    back = ruleInt[1]
+    return front, back
+
+
+def validateIndex(rules, pages):
+    for rule in rules:
+        thisRule = getIntFromRules(rule)
+        frontIndex = frontAndBackSearch(pages, thisRule[0])
+        backIndex = frontAndBackSearch(pages, thisRule[1])
+        isFollowRule = isPosition(frontIndex, backIndex)
+        if isFollowRule:
+            print(thisRule, "Is Correct")
+        elif isFollowRule == "Error":
+            print("Error with this one")
+        else:
+            (thisRule, "Is Incorrect")
+
+
+    
+        
+
+
